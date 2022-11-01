@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios"; //Axios is like fetch. Fetch is built in but axios you have to install.
 
-// I used Componant, State and Props
-
+// I used Function Components, States and Props here below.
 function App() {
   const [data, setData] = useState({}); // two values: data and setData = useState(set to an empty object).
   const [location, setLocation] = useState(''); // state with an empty string.
+  const [dog, setDog] = useState('');
 
 // I got my API info from openweathermap.org. Location is the value the search location will be passing in
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=7cc66db8b37198c3cc016a9e8033b718&units=metric`;
@@ -21,14 +21,33 @@ const searchLocation = (event) => {
     })
     setLocation('') // after onKeyPress, set to an empty string because when I have pressed enter I want the location to dissapear
   }
+};
+
+// Here I used useEffect to fetch a random dog photo
+useEffect(() => {
+  fetchDogs(); //load dog state on initial render
+}, []);
+
+const fetchDogs = async () => {
+  try { // defines a code block to run (to try).
+    const res = await fetch('https://dog.ceo/api/breeds/image/random');
+    const data = await res.json();
+    console.log(data.message);
+    setDog(data.message);
+  } catch (error) { // defines a code block to handle any error.
+  }
+};
+
+const changeDog = ()=> {
+  alert("changeddog")
 }
 
   return (
     <div className="app">
       <div className="search">
         <input
-        value={location} // here I use props
-        onChange={event => setLocation(event.target.value)} // here I am using the variable setLocation in JSX
+        value={location} // grabbing the location from the API location
+        onChange={event => setLocation(event.target.value)}
         onKeyPress={searchLocation} // on keyPress the code above is going to run, searchLocation
         placeholder="Enter Location"
         type="text"/>
@@ -47,7 +66,7 @@ const searchLocation = (event) => {
         </div>
 
 {data.name != undefined &&
-  <div className="bottom">
+      <div className="bottom">
           <div className="feels">
           {data.main ? <p className="bold">{data.main.feels_like.toFixed()}°C</p> : null}
             <p>Feels Like</p>
@@ -60,8 +79,10 @@ const searchLocation = (event) => {
             {data.wind ? <p className="bold">{data.wind.speed.toFixed()}m/s</p> : null}
             <p>Wind Speed</p>
           </div>
-        </div>
+      </div>
 }
+        <img src={dog}/>
+        <button onClick={fetchDogs}>Random Dog Photo</button>
       </div>
     </div>  
   );

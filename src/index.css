@@ -1,4 +1,4 @@
-/* Here I did all of my styling */
+/* Here I did all of my app.js styling */
 
 @import url("https://fonts.googleapis.com/css2?family=Outfit&family=Outfit:wght@200;300;400;500;600&display=swap");
 
@@ -25,7 +25,7 @@ h1 {
   width: 100%;
   height: 100vh;
   position: relative;
-  background-color: rgba(0,0,0,0.4); /* darken my image to have white text */
+  background-color: rgba(0,0,0,0.4); /* darkened my image to have white text */
   color: white;
 }
 
@@ -98,7 +98,22 @@ h1 {
   font-weight: 700;
 }
 
+img {
+  max-width: 550vh;
+  max-height: 550vh;
+}
 
+button {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  border: 1px solid #f8f8f8;
+  color: #f8f8f8;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
 
 
 
